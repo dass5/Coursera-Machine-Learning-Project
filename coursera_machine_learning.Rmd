@@ -55,14 +55,14 @@ colnames(training)
 [153] "gyros_forearm_z"          "accel_forearm_x"          "accel_forearm_y"          "accel_forearm_z"         
 [157] "magnet_forearm_x"         "magnet_forearm_y"         "magnet_forearm_z"         "classe"    
 
-So there are 160 columns all together. Our dependent variable is “classe”. Let's see how many of them are A, how many B and C,D or E from the data in training
+So there are 160 columns all together. Our dependent variable is â€œclasseâ€. Let's see how many of them are A, how many B and C,D or E from the data in training
 table(training$classe)
 A    B    C    D    E 
 5580 3797 3422 3216 3607 
 
 Data Cleaning:
 Missing Data:
-Let’s take a look at what columns have missing values:
+Letâ€™s take a look at what columns have missing values:
 summary(training)
 nacols=training[colSums(is.na(training))>0]
 dim(nacols)
@@ -125,7 +125,7 @@ Test Harness:
 This will split our dataset into 5 parts, train on 4 and test on 1 and repeat for all combinations of train-test splits.
 #Create the model
 control <- trainControl(method="repeatedcv", number=5)
-The metric “Accuracy” is used to evaluate models. This is a ratio of the number of correctly predicted instances in divided by the total number of instances in the dataset multiplied by 100 to give a percentage (e.g. 95% accurate). The out of sample will be calculated as (1-accuracy) multiplied by 100 to give a percentage.
+The metric â€œAccuracyâ€ is used to evaluate models. This is a ratio of the number of correctly predicted instances in divided by the total number of instances in the dataset multiplied by 100 to give a percentage (e.g. 95% accurate). The out of sample will be calculated as (1-accuracy) multiplied by 100 to give a percentage.
 Build Models:
 Spot check 5 different algorithms to check wich one gives better accuracy on training dataset:
 1. Stochastic Gradient Boosting (Generalized Boosted Modeling GBM)
@@ -180,9 +180,10 @@ NaiveBayes   0.6662  0.6773 0.6789 0.6781  0.6826 0.6853    0
 CART         0.4395  0.4512 0.4647 0.4621  0.4690 0.4859    0
 RandomForest 0.9949  0.9959 0.9959 0.9964  0.9968 0.9986    0
 
-Let’s review the results using a few different visualization techniques to get an idea of the mean and spread of accuracies.
+Letâ€™s review the results using a few different visualization techniques to get an idea of the mean and spread of accuracies.
 # boxplot comparison
 bwplot(results)
+
  
 # Dot-plot comparison
 dotplot(results)
@@ -190,7 +191,7 @@ dotplot(results)
 Now we can see Random Forest and GBM algorithm are the most accurate models that we tested. Now we want to get an idea of the accuracy of the model on our validation set.
 This will give us an independent final check on the accuracy and out of sample error of the best model. It is valuable to keep a validation set just in case you made a slip during training, such as overfitting to the training set or a data leak. Both will result in an overly optimistic result.
 
-Let’s check for variable importance:
+Letâ€™s check for variable importance:
 varImp(fit.rf)
 plot(varImp(fit.rf))
  
@@ -272,7 +273,7 @@ Balanced Accuracy      0.9982   0.9890   0.9934   0.9948   0.9952
 
 We can see that Random forest gives slightly better performance than GBM. The Random Forest algorithm gives an accuracy of 0.9978 or 99.78%. The out of sample error is .0022 or .22%.The confusion matrix provides an indication of the ten errors made. 
 Predictions on testing set:
-We’re now ready to fit the model to our test data and make our predictions.
+Weâ€™re now ready to fit the model to our test data and make our predictions.
 Prepare the test dataset:
 #Remove the classe variable from train_final
 train_class<-train_final[,-c(55)]
